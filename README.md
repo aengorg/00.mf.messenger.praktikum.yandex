@@ -1,15 +1,15 @@
 # Чат
 
-[netlify.com](https://vigorous-johnson-531ca1.netlify.app/)
+[netlify.com test](https://vigorous-johnson-531ca1.netlify.app/)
 
 ## Дизайн
 
-[скрины в ui](./ui)
+[скрины в ui](./ui)  
 [figma.com](https://www.figma.com/file/2qTVHyIi1AULP9ZXw1UHjQ/Messenger?node-id=0%3A1)
 
 ## Описание
 
-Стили для чата.
+Стили для чата. Что то для чата, пока не понятно.
 
 ## Установка
 
