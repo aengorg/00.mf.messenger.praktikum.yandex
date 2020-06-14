@@ -6,11 +6,7 @@ npm version minor;
 
 git checkout deploy;
 
-git merge master;
-
-git add -A .;
-
-git commit -m 'update';
+git merge master -m 'update';
 
 git push origin deploy;
 
