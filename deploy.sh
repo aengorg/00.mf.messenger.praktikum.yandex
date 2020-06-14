@@ -12,6 +12,6 @@ git push origin deploy;
 
 git checkout dev;
 
-git merge master;
+git merge master -m 'update';
 
 echo 'END DEPLOY';
