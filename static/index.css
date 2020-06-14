@@ -1,9 +1,9 @@
-@import url('./avatar.css');
-@import url('./box.css');
-@import url('./button.css');
-@import url('./input.css');
-@import url('./link.css');
-@import url('./title.css');
+@import url('./common/avatar.css');
+@import url('./common/box.css');
+@import url('./common/button.css');
+@import url('./common/input.css');
+@import url('./common/link.css');
+@import url('./common/title.css');
 
 :root {
   --nord-g: #999;
