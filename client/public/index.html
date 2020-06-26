@@ -3,20 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
-  <body>
-    <style>
-      a {
-        display: block;
-        padding: 5px;
-      }
-    </style>
-    <a href="/500/index.html">500</a>
-    <a href="/404/index.html">404</a>
-    <a href="/chat/index.html">chat</a>
-    <a href="/settings/index.html">settings</a>
-    <a href="/login/index.html">login</a>
-    <a href="/registration/index.html">registration</a>
+  <body class="body">
+    <div id="root">loading...</div>
   </body>
 </html>
