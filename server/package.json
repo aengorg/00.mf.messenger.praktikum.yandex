@@ -4,20 +4,12 @@
   "description": "[netlify.com test](https://vigorous-johnson-531ca1.netlify.app/)",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env PORT=80 node server.js",
+    "start": "cross-env PORT=80 node index.js",
     "deploy": "sh deploy.sh",
-    "dev": "cross-env PORT=8080 nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aengorg/mf.messenger.praktikum.yandex.git"
+    "dev": "cross-env PORT=8080 nodemon index.js"
   },
   "author": "Findoss",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/aengorg/mf.messenger.praktikum.yandex/issues"
-  },
-  "homepage": "https://github.com/aengorg/mf.messenger.praktikum.yandex#readme",
   "dependencies": {
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
