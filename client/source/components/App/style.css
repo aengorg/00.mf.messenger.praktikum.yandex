@@ -1,8 +1,16 @@
 .nav {
+  display: flex;
+  justify-content: center;
+  height: 30px;
 }
 
 .nav__button {
   color: var(--nord9);
-  margin: 5px;
   padding: 5px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

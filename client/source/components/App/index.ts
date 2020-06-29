@@ -2,59 +2,65 @@ import { Component } from '../Component';
 import * as template from './template.hbs';
 import './style.css';
 
+import '../Box/style.css';
+
+import { PageError } from '../PageError/index';
+import { PageLogin } from '../PageLogin/index';
+
 import { DOMEvent } from '../../types';
 
 export class App extends Component {
-  // model = ListModel.load();
-
   render(props: any): string {
     return template(props);
   }
 
   onRender() {
     const { domElement } = this;
-
-    domElement.addEventListener('click', this.goPage);
-    // domElement.addEventListener(EDIT, this.handleEdit);
-    // domElement.addEventListener(CLOSE_FORM, this.handleCloseForm);
-
-    // this.showContacts();
-    // this.showHelp();
+    domElement.querySelector('.nav').addEventListener('click', this.goPage);
   }
 
-  goPage(e: DOMEvent<HTMLLinkElement>): void {
+  goPage = (e: DOMEvent<HTMLLinkElement>): void => {
     e.preventDefault();
     e.stopPropagation();
+
     const urlPath = new URL(e.target.href).pathname;
     location.replace(`#${urlPath}`);
-  }
 
-  // handleEdit = ({ detail }) => {
-  // this.showEdit(detail)
-  // };
+    const { domElement } = this;
+    const slot = domElement.querySelector('[ref=slot]');
 
-  // handleCloseForm = () => {
-  // this.showHelp()
-  // };
+    switch (urlPath) {
+      case '/login':
+        const pageLogin = new PageLogin();
+        pageLogin.renderTo(slot, null);
+        break;
+      case '/registration':
+        break;
 
-  // handleSubmit = () => {
-  // this.showHelp();
-  // };
+      case '/chat':
+        break;
 
-  // showContacts() {
-  // const contacts = new Contacts({
-  // 	model: this.model
-  // });
-  // contacts.renderTo(this.contactsElement);
-  // }
+      case '/setting':
+        break;
 
-  // showHelp() {
-  // const help = new Help();
-  // help.renderTo(this.editElement);
-  // }
+      case '/error':
+        const pageError = new PageError();
+        pageError.renderTo(slot, {
+          code: '500',
+          text: 'server error',
+          linkText: 'Go to home',
+          link: '/#/',
+        });
+        break;
 
-  // showEdit(model: ItemModel) {
-  // const contacts = new Edit({ model });
-  // contacts.renderTo(this.editElement);
-  // }
+      default:
+        pageError.renderTo(slot, {
+          code: '404',
+          text: 'not found',
+          linkText: 'Go to home',
+          link: '/#/',
+        });
+        break;
+    }
+  };
 }
