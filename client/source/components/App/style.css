@@ -1,0 +1,8 @@
+.nav {
+}
+
+.nav__button {
+  color: var(--nord9);
+  margin: 5px;
+  padding: 5px;
+}
