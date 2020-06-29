@@ -16,6 +16,8 @@
   --nord13: #ebcb8b;
   --nord14: #a3be8c;
   --nord15: #b48ead;
+
+  --white-shadow: 0px 2px 4px #d8dee9;
 }
 
 ::-webkit-scrollbar {
@@ -53,7 +55,7 @@ html {
 .body {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100vw;
   height: 100vh;
   margin: 0;
