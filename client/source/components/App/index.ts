@@ -2,10 +2,10 @@ import { Component } from '../Component';
 import * as template from './template.hbs';
 import './style.css';
 
-import '../Box/style.css';
-
 import { PageError } from '../PageError/index';
 import { PageLogin } from '../PageLogin/index';
+import { PageRegistration } from '../PageRegistration/index';
+import { PageSettings } from '../PageSettings/index';
 
 import { DOMEvent } from '../../types';
 
@@ -16,35 +16,45 @@ export class App extends Component {
 
   onRender() {
     const { domElement } = this;
-    domElement.querySelector('.nav').addEventListener('click', this.goPage);
+    domElement.addEventListener('click', this.clickHendler);
   }
 
-  goPage = (e: DOMEvent<HTMLLinkElement>): void => {
-    e.preventDefault();
-    e.stopPropagation();
+  clickHendler = (e: DOMEvent<HTMLLinkElement>): void => {
+    if (e.target.href) {
+      e.preventDefault();
+      e.stopPropagation();
+      const urlPath = new URL(e.target.href).pathname;
+      location.replace(`#${urlPath}`);
+      this.reloadPage(urlPath);
+    }
+  };
 
-    const urlPath = new URL(e.target.href).pathname;
-    location.replace(`#${urlPath}`);
-
+  reloadPage = (urlPath: string): void => {
     const { domElement } = this;
     const slot = domElement.querySelector('[ref=slot]');
 
+    const pageError = new PageError();
+    const pageLogin = new PageLogin();
+    const pageRegistration = new PageRegistration();
+    const pageSettings = new PageSettings();
+
     switch (urlPath) {
       case '/login':
-        const pageLogin = new PageLogin();
         pageLogin.renderTo(slot, null);
         break;
       case '/registration':
+        pageRegistration.renderTo(slot, null);
         break;
 
       case '/chat':
+        slot.innerHTML = '';
         break;
 
-      case '/setting':
+      case '/settings':
+        pageSettings.renderTo(slot, null);
         break;
 
       case '/error':
-        const pageError = new PageError();
         pageError.renderTo(slot, {
           code: '500',
           text: 'server error',
