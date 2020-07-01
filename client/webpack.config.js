@@ -40,5 +40,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      handlebars: 'handlebars/dist/handlebars.min.js',
+    },
   },
 };
