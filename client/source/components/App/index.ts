@@ -30,8 +30,7 @@ export class App extends Component {
   };
 
   reloadPage = (urlPath: string): void => {
-    const { domElement } = this;
-    const slot = domElement.querySelector('[ref=slot]');
+    const slot = this.getSlot();
 
     const pageError = new PageError();
     const pageLogin = new PageLogin();
@@ -40,10 +39,11 @@ export class App extends Component {
 
     switch (urlPath) {
       case '/login':
-        pageLogin.renderTo(slot, null);
+        pageLogin.create({}, slot);
         break;
+
       case '/registration':
-        pageRegistration.renderTo(slot, null);
+        pageRegistration.create({}, slot);
         break;
 
       case '/chat':
@@ -51,25 +51,31 @@ export class App extends Component {
         break;
 
       case '/settings':
-        pageSettings.renderTo(slot, null);
+        pageSettings.create({}, slot);
         break;
 
       case '/error':
-        pageError.renderTo(slot, {
-          code: '500',
-          text: 'server error',
-          linkText: 'Go to home',
-          link: '/#/',
-        });
+        pageError.create(
+          {
+            code: '500',
+            text: 'server error',
+            linkText: 'Go to home',
+            link: '/#/',
+          },
+          slot
+        );
         break;
 
       default:
-        pageError.renderTo(slot, {
-          code: '404',
-          text: 'not found',
-          linkText: 'Go to home',
-          link: '/#/',
-        });
+        pageError.create(
+          {
+            code: '404',
+            text: 'not found',
+            linkText: 'Go to home',
+            link: '/#/',
+          },
+          slot
+        );
         break;
     }
   };

@@ -1,11 +1,16 @@
-<div class="title">{{ title }}</div>
-<br />
-<form action="" class="form">
-  <div class="form_error"></div>
-  {{#each slots as |slot| }}
-  {{{ slot }}}
-  <br>
-  {{/each}}
+<div>
+  <div class="title">{{ title }}</div>
   <br />
+  <form action="" class="form">
+    <div class="form_error"></div>
+    <div slot="btn-submit"></div>
+    {{!-- <div slot="btn-submit"></div> --}}
+    {{!-- <div slot="btn-submit"></div> --}}
+
+    {{#each slots as |slot| }}
+    {{{ slot }}}
+    {{/each }}
+  </form>
+  <br>
   <a class="link" href="{{ link.url }}">{{ link.text }}</a>
-</form>
+</div>

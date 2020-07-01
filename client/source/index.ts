@@ -3,4 +3,4 @@ import './style.css';
 
 let app = new App();
 
-app.renderTo(document.querySelector('#root'));
+app.create({}, document.querySelector('#root'));
