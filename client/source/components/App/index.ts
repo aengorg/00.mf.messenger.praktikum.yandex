@@ -43,7 +43,8 @@ export class App extends Component {
         break;
 
       case '/registration':
-        pageRegistration.create({}, slot);
+        slot.innerHTML = '';
+        // pageRegistration.create({}, slot);
         break;
 
       case '/chat':
@@ -51,31 +52,34 @@ export class App extends Component {
         break;
 
       case '/settings':
-        pageSettings.create({}, slot);
+        slot.innerHTML = '';
+        // pageSettings.create({}, slot);
         break;
 
       case '/error':
-        pageError.create(
-          {
-            code: '500',
-            text: 'server error',
-            linkText: 'Go to home',
-            link: '/#/',
-          },
-          slot
-        );
+        slot.innerHTML = '';
+        // pageError.create(
+        //   {
+        //     code: '500',
+        //     text: 'server error',
+        //     linkText: 'Go to home',
+        //     link: '/#/',
+        //   },
+        //   slot
+        // );
         break;
 
       default:
-        pageError.create(
-          {
-            code: '404',
-            text: 'not found',
-            linkText: 'Go to home',
-            link: '/#/',
-          },
-          slot
-        );
+        slot.innerHTML = '';
+        // pageError.create(
+        //   {
+        //     code: '404',
+        //     text: 'not found',
+        //     linkText: 'Go to home',
+        //     link: '/#/',
+        //   },
+        //   slot
+        // );
         break;
     }
   };

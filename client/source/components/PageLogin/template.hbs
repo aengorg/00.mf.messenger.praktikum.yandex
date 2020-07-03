@@ -8,7 +8,7 @@
     {{!-- <div slot="btn-submit"></div> --}}
 
     {{#each slots as |slot| }}
-    {{{ slot }}}
+    {{{component slot parent:this}}}
     {{/each }}
   </form>
   <br>

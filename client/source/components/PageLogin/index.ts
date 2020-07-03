@@ -48,7 +48,7 @@ export class PageLogin extends Component {
     return box.render({
       slot: form.render({
         slot: template({
-          slots: [inputLogin],
+          slots: [Input],
           title: 'Login',
           link: {
             text: 'New account',
