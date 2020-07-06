@@ -1,14 +1,3 @@
-.nav {
-  display: flex;
-  justify-content: center;
-  height: 30px;
-}
-
-.nav__button {
-  color: var(--nord9);
-  padding: 5px;
-}
-
 #app {
   display: flex;
   flex-direction: column;

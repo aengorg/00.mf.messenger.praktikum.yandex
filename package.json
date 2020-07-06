@@ -1,0 +1,13 @@
+{
+  "name": "mf.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "install:server": "cd server && npm ci",
+    "install:client": "cd client && npm ci",
+    "install:all": "npm run install:client && npm run install:server",
+    "dev": "cd server && npm run dev"
+  },
+  "author": "Findoss",
+  "license": "MIT"
+}
