@@ -2,8 +2,10 @@ import { Component } from '../Component.js';
 import { template } from './template.hbs.js';
 
 import { Menu } from '../Menu/index.js';
+
 import { PageError } from '../PageError/index.js';
 import { PageLogin } from '../PageLogin/index.js';
+import { PageRegistration } from '../PageRegistration/index.js';
 
 export class App extends Component {
   constructor(props) {
@@ -26,11 +28,8 @@ export class App extends Component {
 
       case '#/registration':
         page = {
-          component: PageError,
-          props: {
-            code: 'В процессе создания',
-            text: 'registration',
-          },
+          component: PageRegistration,
+          props: {},
         };
         break;
 

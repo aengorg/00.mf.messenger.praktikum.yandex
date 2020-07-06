@@ -5,6 +5,7 @@
 @import url('./components/Input/style.css');
 
 @import url('./components/PageLogin/style.css');
+@import url('./components/PageRegistration/style.css');
 @import url('./components/PageError/style.css');
 
 :root {
