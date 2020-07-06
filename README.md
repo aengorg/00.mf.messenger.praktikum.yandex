@@ -1,6 +1,6 @@
 # Чат
 
-[Netlify.com test](https://vigorous-johnson-531ca1.netlify.app/)
+[Netlify.com test](https://vigorous-johnson-531ca1.netlify.app/) (временно не работает потому что пути для скрипотов раздает нода, на Netlify так гибко не настроить)
 
 ## Дизайн
 
@@ -13,9 +13,10 @@
 ## Установка
 
 Клонируем репозиторий и устанавливаем зависимости
+для сервера и клиента (у каждого свои)
 
 ```
-npm ci
+npm run install:all
 ```
 
 ## Запуск
@@ -24,18 +25,6 @@ npm ci
 
 ```
 npm run dev
-```
-
-для прода
-
-```
-npm start
-```
-
-для деплоя
-
-```
-npm run deploy
 ```
 
 ## **Примеры использования**
