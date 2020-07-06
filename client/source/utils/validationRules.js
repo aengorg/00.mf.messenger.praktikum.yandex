@@ -15,3 +15,8 @@ export const email = (v) => {
   if (!regExp.test(v)) return 'Not email format';
   return '';
 };
+
+export const equalPasswords = (v1, v2) => {
+  if (v1 !== v2) return 'Not equal passwords';
+  return '';
+};

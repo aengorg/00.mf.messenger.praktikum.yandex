@@ -1,0 +1,7 @@
+.form > div {
+  margin-bottom: 20px;
+}
+
+.form__error {
+  color: var(--nord11);
+}
