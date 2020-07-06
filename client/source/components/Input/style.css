@@ -1,16 +1,58 @@
-.button {
+.input {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  position: relative;
+
   width: 100%;
-  padding: 4px;
-  background-color: var(--nord9);
-  color: white;
-  border: 1px solid var(--nord9);
-  cursor: pointer;
-  border-radius: 3px;
-  text-align: center;
+  padding-top: 18px;
 }
 
-.button:hover {
-  background-color: var(--nord10);
-  color: white;
+.input__label {
+  position: absolute;
+  pointer-events: none;
+  bottom: 8px;
+  left: 6px;
+  color: var(--nord-g);
+}
+
+.input__error {
+  display: none;
+  margin: 0 4px 4px 4px;
+  font-size: 0.8rem;
+  color: var(--nord11);
+  text-align: left;
+}
+
+.input__error--show {
+  display: block;
+}
+
+.input__text {
+  height: 32px;
+  width: 100%;
+
+  border: 1px solid var(--nord9);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.input__text:hover {
   border: 1px solid var(--nord10);
+}
+
+.input__text:focus {
+  outline: none;
+}
+
+.input__text:valid ~ .input__label,
+.input__text:empty:focus ~ .input__label {
+  top: 0px;
+  left: 4px;
+  color: var(--nord0);
+}
+
+.input__text:empty:focus ~ .input__label {
+  font-weight: bold;
 }

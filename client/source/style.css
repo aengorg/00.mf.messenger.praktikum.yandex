@@ -1,3 +1,12 @@
+@import url('./components/App/style.css');
+@import url('./components/Menu/style.css');
+@import url('./components/Box/style.css');
+@import url('./components/Button/style.css');
+@import url('./components/Input/style.css');
+
+@import url('./components/PageLogin/style.css');
+@import url('./components/PageError/style.css');
+
 :root {
   --nord-g: #999;
   --nord0: #2e3440;
@@ -39,7 +48,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--nord0);
@@ -58,9 +69,4 @@ html {
   margin: 0;
   padding: 0;
   background-color: var(--nord6);
-}
-
-div["ref=slot"] {
-  width: 100%;
-  height: 100%;
 }
