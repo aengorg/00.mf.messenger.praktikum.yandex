@@ -1,9 +1,12 @@
-import { Component } from '../Component.js';
+import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
 
 import { validation } from '../../utils/validation.js';
 
 export class Input extends Component {
+  value: string = '';
+  errors: string[];
+
   constructor(props) {
     super(props);
 

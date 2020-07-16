@@ -1,7 +1,12 @@
-import { generationId } from '../utils/generationId.js';
+import { generationId } from '../../utils/generationId.js';
 
 export class Component {
-  constructor(props = {}) {
+  id: string;
+  el: HTMLElement;
+  props: any;
+  children: any[];
+
+  constructor(props: any = {}) {
     this.id = generationId();
     this.el = null;
     this.props = props;
@@ -9,35 +14,35 @@ export class Component {
     this.onInit();
   }
 
-  insert(el) {
+  public insert(el): void {
     el.innerHTML = this.render();
     this.mount();
   }
 
-  addChildren(component) {
+  public addChildren(component: any): void {
     this.children.push(component);
   }
 
-  renderTemplate(template, props) {
+  public renderTemplate(template, props): string {
     return Handlebars.compile(template)({ ...props, id: this.id });
   }
 
-  mount() {
+  public mount(): void {
     this.el = document.querySelector(`[data-key="${this.id}"]`);
-    this.children.forEach((component) => component.mount());
+    this.children.forEach((component: any) => component.mount());
     this.onMount();
   }
 
-  remove() {
+  public remove(): void {
     this.onRemove();
     if (this.el) {
+      this.children.forEach((component: any) => component.remove());
       this.el.innerHTML = '';
-      this.children.forEach((component) => component.remove());
       this.children = [];
     }
   }
 
-  update(props) {
+  public update(props): void {
     this.onUpdate();
     this.remove();
 
@@ -49,15 +54,21 @@ export class Component {
     this.mount();
   }
 
-  triggerEvent(eventName, detail) {
+  public triggerEvent(eventName, detail): void {
     const event = new window.CustomEvent(eventName, { detail });
     this.el.dispatchEvent(event);
   }
 
-  render() {}
+  public render(props?: any): any {}
 
-  onInit() {}
-  onMount() {}
-  onUpdate() {}
-  onRemove() {}
+  public onInit(): void {}
+
+  public onMount(): void {}
+  public onMounted(): void {}
+
+  public onUpdate(): void {}
+  public onUpdated(): void {}
+
+  public onRemove(): void {}
+  public onRemoved(): void {}
 }

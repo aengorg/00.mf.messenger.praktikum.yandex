@@ -1,4 +1,4 @@
-import { Component } from '../Component.js';
+import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
 
 export class Menu extends Component {

@@ -1,13 +1,15 @@
-import { Component } from '../Component.js';
+import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
 
-import { Button } from '../Button/index.js';
-import { Input } from '../Input/index.js';
+import { Button } from '../../components/Button/index.js';
+import { Input } from '../../components/Input/index.js';
 
 import { required, range, email } from '../../utils/validationRules.js';
 
 export class PageLogin extends Component {
-  constructor(props) {
+  fields: any[];
+
+  constructor(props?: any) {
     super(props);
 
     this.fields = [
@@ -36,7 +38,7 @@ export class PageLogin extends Component {
           type: 'submit',
         },
       },
-    ].map((v) => {
+    ].map((v: any) => {
       v.parent = this;
       return v;
     });

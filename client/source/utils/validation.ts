@@ -4,7 +4,6 @@ export const validation = (value, rules) => {
   });
   if (!arr.some((v) => v !== '')) {
     return [];
-  } else {
-    return arr.filter((v) => !!v);
   }
+  return arr.filter((v) => !!v);
 };

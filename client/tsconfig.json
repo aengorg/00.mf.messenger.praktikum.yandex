@@ -1,0 +1,27 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "es6",
+
+    "outDir": "./public/dist",
+    "target": "es6",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmitOnError": true,
+    "strict": false,
+    "removeComments": true,
+    "sourceMap": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "watch": true,
+    "newLine": "LF",
+    "moduleResolution": "classic"
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "webpack.*.js",
+    "node_modules",
+    "tmp",
+    "public/**/*"
+  ]
+}

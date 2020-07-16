@@ -1,14 +1,14 @@
-import { Component } from '../Component.js';
+import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
 
 import { Menu } from '../Menu/index.js';
 
-import { PageError } from '../PageError/index.js';
-import { PageLogin } from '../PageLogin/index.js';
-import { PageRegistration } from '../PageRegistration/index.js';
+import { PageError } from '../../pages/PageError/index.js';
+import { PageLogin } from '../../pages/PageLogin/index.js';
+import { PageRegistration } from '../../pages/PageRegistration/index.js';
 
 export class App extends Component {
-  constructor(props) {
+  constructor(props?: any) {
     super(props);
   }
 

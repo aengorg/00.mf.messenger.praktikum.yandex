@@ -1,8 +1,8 @@
-import { Component } from '../Component.js';
+import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
 
-import { Button } from '../Button/index.js';
-import { Input } from '../Input/index.js';
+import { Button } from '../../components/Button/index.js';
+import { Input } from '../../components/Input/index.js';
 
 import {
   required,
@@ -12,7 +12,10 @@ import {
 } from '../../utils/validationRules.js';
 
 export class PageRegistration extends Component {
-  constructor(props) {
+  fields: any;
+  errors: any;
+
+  constructor(props?: any) {
     super(props);
 
     this.errors = [];
@@ -61,7 +64,7 @@ export class PageRegistration extends Component {
           type: 'submit',
         },
       },
-    ].map((v) => {
+    ].map((v: any) => {
       v.parent = this;
       return v;
     });
@@ -87,33 +90,37 @@ export class PageRegistration extends Component {
     return equalPasswords(passwords[0].getValue(), passwords[1].getValue());
   }
 
+  submit() {
+    const resValidation = this.validation();
+
+    console.log('resValidation', resValidation);
+
+    if (!resValidation) {
+      const fields = this.children.filter((filed) => filed instanceof Input);
+      console.log('fields', fields);
+
+      if (fields.every((field) => field.isValid())) {
+        const result = fields.reduce((acc, field) => {
+          return {
+            ...acc,
+            [field.props.name]: field.getValue(),
+          };
+        }, {});
+
+        console.log(result);
+
+        // fields.forEach((field) => field.resetValue());
+      }
+    } else {
+      this.errors.push(resValidation);
+      this.update(this.props);
+      // ВСЁ ломает, так как компоненты пересоздаются
+      // а не обновлять невозможно - не будет отображения ошибки
+    }
+  }
+
   onMount() {
     const submit = this.el.querySelector('[type="submit"]');
-
-    submit.addEventListener('click', (e) => {
-      const resValidation = this.validation();
-
-      if (!resValidation) {
-        const fields = this.children.filter((filed) => filed instanceof Input);
-
-        if (fields.every((field) => field.isValid())) {
-          const result = fields.reduce((acc, field) => {
-            return {
-              ...acc,
-              [field.props.name]: field.getValue(),
-            };
-          }, {});
-
-          console.log(result);
-
-          fields.forEach((field) => field.resetValue());
-        }
-      } else {
-        this.errors.push(resValidation);
-        // this.update(this.props);
-        // ВСЁ ломает, так как компоненты пересоздаются
-        // а не обновлять невозможно - не будет отображения ошибки
-      }
-    });
+    submit.addEventListener('click', (e) => this.submit());
   }
 }
