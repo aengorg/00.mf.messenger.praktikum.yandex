@@ -6,7 +6,9 @@
     "install:server": "cd server && npm ci",
     "install:client": "cd client && npm ci",
     "install:all": "npm run install:client && npm run install:server",
-    "dev": "cd server && npm run dev"
+    "dev:client": "cd server && npm run dev",
+    "dev:server": "cd client && npm run dev",
+    "dev": "npm run dev:server && npm run dev:client"
   },
   "author": "Findoss",
   "license": "MIT"

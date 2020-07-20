@@ -1,12 +1,12 @@
-@import url('./components/App/style.css');
+/* @import url('./components/App/style.css');
 @import url('./components/Menu/style.css');
 @import url('./components/Box/style.css');
 @import url('./components/Button/style.css');
-@import url('./components/Input/style.css');
+@import url('./components/Input/style.css'); */
 
-@import url('./pages/PageLogin/style.css');
+/* @import url('./pages/PageLogin/style.css');
 @import url('./pages/PageRegistration/style.css');
-@import url('./pages/PageError/style.css');
+@import url('./pages/PageError/style.css'); */
 
 :root {
   --nord-g: #999;
@@ -59,7 +59,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--nord0);
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 100vw;
