@@ -1,12 +1,12 @@
-/* @import url('./components/App/style.css');
+/* @import url('./components/App/style.css'); */
 @import url('./components/Menu/style.css');
 @import url('./components/Box/style.css');
-@import url('./components/Button/style.css');
-@import url('./components/Input/style.css'); */
+/* @import url('./components/Button/style.css'); */
+/* @import url('./components/Input/style.css'); */
 
-/* @import url('./pages/PageLogin/style.css');
-@import url('./pages/PageRegistration/style.css');
-@import url('./pages/PageError/style.css'); */
+/* @import url('./pages/PageLogin/style.css'); */
+/* @import url('./pages/PageRegistration/style.css'); */
+@import url('./pages/PageError/style.css');
 
 :root {
   --nord-g: #999;
@@ -60,8 +60,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--nord0);
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   width: 100vw;
   height: 100vh;
   margin: 0;

@@ -1,18 +1,25 @@
+import { Component } from '../Component/Component.js';
+
 export class Route {
-  view: any;
-  rootQuery: string;
+  private pathname: string;
+  private component: Component;
 
-  constructor(view: any, rootQuery: string) {
-    this.view = view;
-    this.rootQuery = rootQuery;
+  constructor(pathname: string, component: Component) {
+    this.pathname = pathname;
+    this.component = component;
   }
 
-  private clear() {
-    document.querySelector(this.rootQuery).innerHTML = '';
+  public leave() {
+    this.component.hide();
   }
 
-  public mount() {
-    this.clear();
-    this.view.mount(this.rootQuery);
+  public match(pathname) {
+    pathname = pathname.replace('#', '');
+    return pathname === this.pathname;
+  }
+
+  public render(node: Element) {
+    this.component.show();
+    node.appendChild(this.component.element);
   }
 }

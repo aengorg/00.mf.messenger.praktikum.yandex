@@ -1,4 +1,4 @@
-import { HashRouter } from './Router';
+import { Router } from './Router';
 
 describe('HashRouter', () => {
   it('добавляем путь', () => {

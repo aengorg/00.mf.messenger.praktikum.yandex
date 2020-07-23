@@ -1,44 +1,50 @@
 import { Component } from '../../classes/Component/Component.js';
 import { template } from './template.hbs.js';
+import { router } from '../../classes/Router/Router.js';
 
 export class Menu extends Component {
-  constructor(props) {
+  constructor(props = {}) {
     super(props);
   }
 
   render() {
     const links = [
       {
-        link: '.#/login',
+        link: '.#login',
         title: 'Login',
       },
       {
-        link: '.#/registration',
+        link: '.#registration',
         title: 'Registration',
       },
       {
-        link: '.#/chat',
+        link: '.#chat',
         title: 'Chat',
       },
       {
-        link: '.#/settings',
+        link: '.#settings',
         title: 'Settings',
       },
       {
-        link: '.#/error',
+        link: '.#error',
         title: 'Error 500',
       },
     ];
 
-    return this.renderTemplate(template, { links });
+    return Handlebars.compile(template)({
+      ...this.props,
+      links,
+      id: this.id,
+    });
   }
 
-  onMount() {
-    const links = this.el.querySelectorAll('a');
+  componentDidMount(oldProps: any): boolean {
+    const links = this.element.querySelectorAll('a');
 
     [...links].forEach((link) => {
       link.addEventListener('click', this.clickLink);
     });
+    return true;
   }
 
   clickLink = (e) => {
@@ -46,10 +52,12 @@ export class Menu extends Component {
       e.preventDefault();
       e.stopPropagation();
 
-      const urlHash = new URL(e.target.href).hash;
-      location.replace(urlHash);
+      router.go(new URL(e.target.href).hash);
 
-      this.props.bindNewPage();
+      // const urlHash = new URL(e.target.href).hash;
+      // location.replace(urlHash);
+
+      // this.props.bindNewPage();
 
       // this.triggerEvent('newPage', { data: 'asd' }); // ???
     }

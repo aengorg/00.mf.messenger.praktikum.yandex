@@ -1,10 +1,11 @@
-// class Store {
-//   constructor() {
-//     this.data = {};
-//   }
+class Store {
+  data: any;
+  constructor() {
+    this.data = {};
+  }
 
-//   // get
-//   // set
-// }
+  // get
+  // set
+}
 
-// export const store = Store();
+export const store = new Store();

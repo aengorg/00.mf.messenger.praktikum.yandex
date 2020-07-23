@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env PORT=80 node index.js",
     "deploy": "sh deploy.sh",
-    "dev": "cross-env PORT=8080 nodemon index.js"
+    "dev": "cross-env PORT=7000 nodemon index.js"
   },
   "author": "Findoss",
   "license": "MIT",

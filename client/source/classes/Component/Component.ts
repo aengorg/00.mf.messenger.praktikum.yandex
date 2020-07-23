@@ -1,7 +1,9 @@
 import { EventBus } from '../EventBus/EventBus.js';
+import { generationId } from '../../utils/generationId.js';
 
 export class Component {
   protected props: any;
+  protected id: string;
   private state: any;
   private eventBus: EventBus;
   private _element: HTMLElement;
@@ -16,6 +18,7 @@ export class Component {
   constructor(props = {}) {
     this.eventBus = new EventBus();
 
+    this.id = generationId();
     this._element = undefined;
     this.state = {};
     this.props = this.makePropsProxy(props);
@@ -56,7 +59,6 @@ export class Component {
   }
 
   public componentDidMount(oldProps?: any): boolean {
-    console.log('componentDidMount');
     return true;
   }
 
@@ -79,7 +81,7 @@ export class Component {
     return this._element;
   }
 
-  get content() {
+  getContent() {
     return this.element;
   }
 
@@ -95,7 +97,7 @@ export class Component {
 
   public mount(el: Element): void {
     el.innerHTML = '';
-    el.appendChild(this.content);
+    el.appendChild(this.getContent());
   }
 
   private makePropsProxy(props) {
@@ -120,11 +122,11 @@ export class Component {
     return document.createElement(tagName);
   }
 
-  // show() {
-  //   this.getContent().style.display = 'block';
-  // }
+  show() {
+    this.getContent().style.display = 'block';
+  }
 
-  // hide() {
-  //   this.getContent().style.display = 'none';
-  // }
+  hide() {
+    this.getContent().style.display = 'none';
+  }
 }

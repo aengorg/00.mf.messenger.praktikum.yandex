@@ -1,33 +1,32 @@
 declare global {
   const Handlebars;
 }
-
+import { Menu } from './components/Menu/index.js';
 import { ErrorPage } from './pages/PageError/index.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('hello');
+import { store } from './store/index.js';
+import { router } from './classes/Router/Router.js';
 
-  const page = new ErrorPage();
-  const root = document.querySelector('#app');
-  page.mount(root);
-});
+const rootEl = document.querySelector('#app');
+const menuEl = document.querySelector('#menu');
 
-// import { router } from './classes/Router/Router.js';
+const menu = new Menu();
+menu.mount(menuEl);
 
-// router
-//   .use('#/', new Page())
-//   .use('users', new Page())
-//   .use('users2', new Page())
-//   .use('use3rs', new Page())
-//   .use('ammo', new Page())
-//   .start();
-
-// router.go('/');
-
-// setTimeout(() => {
-//   router.go('users');
-// }, 2000);
-
-// setTimeout(() => {
-//   router.back();
-// }, 4000);
+router
+  .use('', new ErrorPage({ text: 'root' }))
+  .use('login', new ErrorPage({ text: 'login' }))
+  .use('1', new ErrorPage({ text: '1' }))
+  .use('2', new ErrorPage({ text: '2' }))
+  .use('3', new ErrorPage({ text: '3' }))
+  .use('4', new ErrorPage({ text: '4' }))
+  .default(
+    'error404',
+    new ErrorPage({
+      code: '404',
+      text: 'not found',
+      link: '#',
+      linkText: 'Go to home',
+    })
+  )
+  .start(rootEl);
