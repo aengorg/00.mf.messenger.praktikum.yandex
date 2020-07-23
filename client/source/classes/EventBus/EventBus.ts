@@ -1,11 +1,15 @@
+interface IListeners {
+  [event: string]: Function[];
+}
+
 export class EventBus {
-  listeners: any;
+  listeners: IListeners;
 
   constructor() {
     this.listeners = {};
   }
 
-  public on(event: any, callback: any): void {
+  public on(event: string, callback: Function): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -13,7 +17,7 @@ export class EventBus {
     this.listeners[event].push(callback);
   }
 
-  public off(event: any, callback: any): void {
+  public off(event: string, callback: Function): void {
     this.isEvent(event);
 
     this.listeners[event] = this.listeners[event].filter(
@@ -25,14 +29,16 @@ export class EventBus {
     }
   }
 
-  public emit(event: any, ...args: any[]): void {
+  public clear(): void {}
+
+  public emit(event: string, ...args: any[]): void {
     this.isEvent(event);
     this.listeners[event].forEach((listener) => {
       listener(...args);
     });
   }
 
-  private isEvent(event: any): void {
+  private isEvent(event: string): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }

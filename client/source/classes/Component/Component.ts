@@ -1,154 +1,130 @@
-import { generationId } from '../../utils/generationId.js';
 import { EventBus } from '../EventBus/EventBus.js';
+
 export class Component {
+  protected props: any;
+  private state: any;
+  private eventBus: EventBus;
+  private _element: HTMLElement;
+
   static EVENTS = {
-    BEFORE_CREATE: 'BEFORE_CREATE',
-    // CREATE
-    CREATED: 'CREATED',
-    BEFORE_MOUNT: 'BEFORE_MOUNT',
-    // MOUNT
-    MOUNTED: 'MOUNTED',
-    BEFORE_UPDATE: 'BEFORE_UPDATE',
-    // UPDATE
-    UPDATED: 'UPDATED',
-    BEFORE_DESTROY: 'BEFORE_DESTROY',
-    // DESTROY
-    DESTROYED: 'DESTROYED',
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
 
-  id: string;
-  el: HTMLElement;
+  constructor(props = {}) {
+    this.eventBus = new EventBus();
 
-  props: any;
-  meta: any;
-
-  children: any[];
-  bus = new EventBus();
-
-  constructor(props: any = {}, meta: any = {}, children: any[] = []) {
-    this.id = generationId();
-    this.el = document.createElement('div');
-    this.props = props;
-    this.meta = meta;
-    this.children = children;
-
-    this.makePropsProxy();
+    this._element = undefined;
+    this.state = {};
+    this.props = this.makePropsProxy(props);
     this.registerEvents();
-    this.create();
+
+    this.eventBus.emit(Component.EVENTS.INIT);
   }
 
-  private makePropsProxy() {
+  public setState(newState): void {
+    Object.assign(this.state, newState);
+    this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
+  }
+
+  private registerEvents(): void {
+    this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+    this.eventBus.on(
+      Component.EVENTS.FLOW_CDM,
+      this._componentDidMount.bind(this)
+    );
+    this.eventBus.on(Component.EVENTS.FLOW_CDU, (oldProps, newProps) =>
+      this._componentDidUpdate(oldProps, newProps)
+    );
+    this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
+  }
+
+  private createResources(): void {
+    this._element = this.createDocumentElement('div');
+  }
+
+  private init(): void {
+    this.createResources();
+    this.eventBus.emit(Component.EVENTS.FLOW_CDM);
+  }
+
+  private _componentDidMount(): void {
+    this.componentDidMount();
+    this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
+  }
+
+  public componentDidMount(oldProps?: any): boolean {
+    console.log('componentDidMount');
+    return true;
+  }
+
+  private _componentDidUpdate = (oldProps: any, newProps: any): void => {
+    const response = this.componentDidUpdate(oldProps, newProps);
+    if (!response) return;
+    this._render();
+  };
+
+  public componentDidUpdate(oldProps: any, newProps: any) {
+    return true;
+  }
+
+  public setProps = (nextProps: any): void => {
+    if (!nextProps) return;
+    Object.assign(this.props, nextProps);
+  };
+
+  get element() {
+    return this._element;
+  }
+
+  get content() {
+    return this.element;
+  }
+
+  private _render() {
+    if (this._element) {
+      this._element.innerHTML = this.render();
+    }
+  }
+
+  public render(): string {
+    return '';
+  }
+
+  public mount(el: Element): void {
+    el.innerHTML = '';
+    el.appendChild(this.content);
+  }
+
+  private makePropsProxy(props) {
     const self = this;
-    this.props = new Proxy(self.props, {
+    return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, val) {
-        target[prop] = val;
-        self.update();
+      set(target, prop, value) {
+        target[prop] = value;
+        self.eventBus.emit(Component.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
-      deleteProperty(target, prop) {
+      deleteProperty() {
         throw new Error('Нет доступа');
       },
     });
   }
 
-  private registerEvents() {
-    // logs
-    this.bus.on(Component.EVENTS.BEFORE_CREATE, () =>
-      console.log('EVENT', Component.EVENTS.BEFORE_CREATE)
-    );
-    this.bus.on(Component.EVENTS.CREATED, () =>
-      console.log('EVENT', Component.EVENTS.CREATED)
-    );
-    this.bus.on(Component.EVENTS.BEFORE_MOUNT, () =>
-      console.log('EVENT', Component.EVENTS.BEFORE_MOUNT)
-    );
-    this.bus.on(Component.EVENTS.MOUNTED, () =>
-      console.log('EVENT', Component.EVENTS.MOUNTED)
-    );
-    this.bus.on(Component.EVENTS.BEFORE_UPDATE, () =>
-      console.log('EVENT', Component.EVENTS.BEFORE_UPDATE)
-    );
-    this.bus.on(Component.EVENTS.UPDATED, () =>
-      console.log('EVENT', Component.EVENTS.UPDATED)
-    );
-    this.bus.on(Component.EVENTS.BEFORE_DESTROY, () =>
-      console.log('EVENT', Component.EVENTS.BEFORE_DESTROY)
-    );
-    this.bus.on(Component.EVENTS.DESTROYED, () =>
-      console.log('EVENT', Component.EVENTS.DESTROYED)
-    );
-
-    this.bus.on(Component.EVENTS.BEFORE_CREATE, this.onCreate.bind(this));
-    this.bus.on(Component.EVENTS.CREATED, this.onCreated.bind(this));
-    this.bus.on(Component.EVENTS.BEFORE_MOUNT, this.onMount.bind(this));
-    this.bus.on(Component.EVENTS.MOUNTED, this.onMounted.bind(this));
-    this.bus.on(Component.EVENTS.BEFORE_UPDATE, this.onUpdate.bind(this));
-    this.bus.on(Component.EVENTS.UPDATED, this.onUpdated.bind(this));
-    this.bus.on(Component.EVENTS.BEFORE_DESTROY, this.onDestroy.bind(this));
-    this.bus.on(Component.EVENTS.DESTROYED, this.onDestroyed.bind(this));
+  private createDocumentElement(tagName) {
+    return document.createElement(tagName);
   }
 
-  public insert(rootElement): void {
-    rootElement.childNodes[0].replaceWith(this.el);
-    this.mount();
-  }
+  // show() {
+  //   this.getContent().style.display = 'block';
+  // }
 
-  public create(): void {
-    this.bus.emit(Component.EVENTS.BEFORE_CREATE);
-    this.el.innerHTML = this.render();
-    this.bus.emit(Component.EVENTS.CREATED);
-  }
-
-  private mount(): void {
-    this.bus.emit(Component.EVENTS.BEFORE_MOUNT);
-    this.children.forEach((component: any) => component.mount());
-    this.bus.emit(Component.EVENTS.MOUNTED);
-  }
-
-  private update(): void {
-    this.bus.emit(Component.EVENTS.BEFORE_UPDATE);
-    this.destroy();
-
-    let text = this.render().trim();
-    const html = document.createElement('div');
-    html.innerHTML = text;
-    this.el.replaceWith(html.childNodes[0]);
-
-    // this.mount();
-    this.bus.emit(Component.EVENTS.UPDATED);
-  }
-
-  public destroy(): void {
-    this.bus.emit(Component.EVENTS.BEFORE_DESTROY);
-    if (this.el) {
-      this.children.forEach((component: any) => component.destroy());
-      this.el.innerHTML = '';
-      this.children = [];
-    }
-    this.bus.emit(Component.EVENTS.DESTROYED);
-  }
-
-  public addChildren(component: any): void {
-    this.children.push(component);
-  }
-
-  public onCreate(): void {}
-  public onCreated(): void {}
-
-  public onMount(): void {}
-  public onMounted(): void {}
-
-  public onUpdate(): void {}
-  public onUpdated(): void {}
-
-  public onDestroy(): void {}
-  public onDestroyed(): void {}
-
-  public render(props?: any): string {
-    return '';
-  }
+  // hide() {
+  //   this.getContent().style.display = 'none';
+  // }
 }

@@ -2,16 +2,32 @@ declare global {
   const Handlebars;
 }
 
-// import './helpers/Component.js';
+import { ErrorPage } from './pages/PageError/index.js';
 
-// import { Route } from './classes/Route/Route';
-// import { router } from './classes/Router/Router';
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('hello');
 
-// import { PageError } from './pages/PageError/index';
+  const page = new ErrorPage();
+  const root = document.querySelector('#app');
+  page.mount(root);
+});
 
-// const routes = [new Route('/err', PageError)];
-// debugger;
-import { App } from './components/App/index.js';
+// import { router } from './classes/Router/Router.js';
 
-const app = new App({ text: 'text' });
-app.insert(document.querySelector('#root'));
+// router
+//   .use('#/', new Page())
+//   .use('users', new Page())
+//   .use('users2', new Page())
+//   .use('use3rs', new Page())
+//   .use('ammo', new Page())
+//   .start();
+
+// router.go('/');
+
+// setTimeout(() => {
+//   router.go('users');
+// }, 2000);
+
+// setTimeout(() => {
+//   router.back();
+// }, 4000);

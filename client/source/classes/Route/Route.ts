@@ -1,39 +1,18 @@
-// export class Route {
-//   pathname: any;
-//   view: any;
-//   props: any;
+export class Route {
+  view: any;
+  rootQuery: string;
 
-//   constructor(pathname, view, props: any = {}) {
-//     this.pathname = pathname;
-//     this.view = view;
-//     this.props = props;
-//   }
+  constructor(view: any, rootQuery: string) {
+    this.view = view;
+    this.rootQuery = rootQuery;
+  }
 
-//   match(pathname) {
-//     return pathname === this.pathname;
-//   }
+  private clear() {
+    document.querySelector(this.rootQuery).innerHTML = '';
+  }
 
-//   navigate(pathname) {
-//     if (this.match(pathname)) {
-//       this.pathname = pathname;
-//       this.render();
-//     }
-//   }
-
-//   leave() {
-//     if (this.block) {
-//       this.block.hide();
-//     }
-//   }
-
-//   render() {
-//     if (!this.block) {
-//       this.block = new this.view();
-//       // TODO
-//       // this.render(this.props.rootQuery, this.block); // моунт
-//       return;
-//     }
-
-//     this.block.show();
-//   }
-// }
+  public mount() {
+    this.clear();
+    this.view.mount(this.rootQuery);
+  }
+}

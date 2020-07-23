@@ -1,65 +1,50 @@
-// import { Route } from '../Route/Route';
+import { Route } from '../Route/Route.js';
 
-// class Router {
-//   routes: any[];
-//   history: any;
-//   currentRoute: null;
-//   rootQuery: string;
-//   rootPathname: string;
+type TRoutes = Record<string, any>;
 
-//   constructor(rootQuery?: string) {
-//     this.routes = [];
-//     this.history = window.history;
-//     this.currentRoute = null;
-//     this.rootQuery = rootQuery;
-//     this.rootPathname = '';
-//   }
+export class HashRouter {
+  routes: TRoutes;
+  rootQuery: string;
 
-//   use(pathname, block) {
-//     const route = new Route(pathname, block, { rootQuery: this.rootQuery });
-//     this.routes.push(route);
-//     return this;
-//   }
+  constructor(rootQuery = '#app') {
+    this.routes = {};
+    this.rootQuery = rootQuery;
+    window.addEventListener('hashchange', this.onRouteChange);
+  }
 
-//   start(rootPathname = '/') {
-//     this.rootPathname = rootPathname;
-//     window.onpopstate = ((event) => {
-//       this.onRoute(event.currentTarget.location.pathname);
-//     }).bind(this);
-//     this.onRoute(window.location.pathname);
-//   }
+  private onRouteChange() {
+    const { hash } = window.location;
+    console.log(this.routes);
 
-//   onRoute(pathname) {
-//     let route = this.getRoute(pathname);
+    Object.entries(this.routes).some(([routeHash, view]) => {
+      console.log(routeHash, hash, routeHash === hash);
+      if (routeHash === hash) {
+        view.mount();
+        return true;
+      }
+    });
+  }
 
-//     // TODO
-//     // if (this.currentRoute !== null) {
-//     //   this.currentRoute.leave();
-//     // }
+  public use(hash: string, view: any): this {
+    this.routes[hash] = new Route(view, this.rootQuery);
+    return this;
+  }
 
-//     this.currentRoute = route;
-//     route.render(route, pathname);
-//   }
+  public go(hash: string): void {
+    window.location.hash = hash;
+  }
 
-//   go(pathname) {
-//     this.history.pushState({}, '', pathname);
-//     this.onRoute(pathname);
-//   }
+  public back(): void {
+    window.history.back();
+  }
 
-//   back() {
-//     history.back();
-//   }
+  public forward(): void {
+    window.history.forward();
+  }
 
-//   forward() {
-//     history.forward();
-//   }
+  public start(): void {
+    this.onRouteChange();
+  }
+}
 
-//   getRoute(pathname) {
-//     let route = this.routes.find((route) => route.match(pathname));
-//     if (!route) route = this.getRoute(this.rootPathname);
-
-//     return route;
-//   }
-// }
-
-// export const router = new Router();
+export const router = new HashRouter();

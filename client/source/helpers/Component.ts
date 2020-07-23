@@ -1,3 +1,3 @@
-Handlebars.registerHelper('Component', (component) => {
-  return component.render();
-});
+// Handlebars.registerHelper('Component', (component) => {
+//   return component.render();
+// });
