@@ -2,8 +2,8 @@ import { EventBus } from '../EventBus/EventBus.js';
 import { generationId } from '../../utils/generationId.js';
 
 export class Component {
+  public id: string;
   protected props: any;
-  protected id: string;
   private state: any;
   private eventBus: EventBus;
   private _element: HTMLElement;

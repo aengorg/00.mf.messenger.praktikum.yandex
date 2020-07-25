@@ -1,8 +1,11 @@
 declare global {
   const Handlebars;
 }
+import './helpers/Component.js';
+
 import { Menu } from './components/Menu/index.js';
-import { ErrorPage } from './pages/PageError/index.js';
+import { ErrorPage } from './pages/Error/index.js';
+import { LoginPage } from './pages/Login/index.js';
 
 import { store } from './store/index.js';
 import { router } from './classes/Router/Router.js';
@@ -15,11 +18,19 @@ menu.mount(menuEl);
 
 router
   .use('', new ErrorPage({ text: 'root' }))
-  .use('login', new ErrorPage({ text: 'login' }))
+  .use('login', new LoginPage())
   .use('1', new ErrorPage({ text: '1' }))
   .use('2', new ErrorPage({ text: '2' }))
   .use('3', new ErrorPage({ text: '3' }))
-  .use('4', new ErrorPage({ text: '4' }))
+  .use(
+    'error',
+    new ErrorPage({
+      code: '500',
+      text: 'Server error',
+      link: '#',
+      linkText: 'Go to home',
+    })
+  )
   .default(
     'error404',
     new ErrorPage({
