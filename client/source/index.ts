@@ -6,6 +6,7 @@ import { ErrorPage } from './pages/PageError/index.js';
 
 import { store } from './store/index.js';
 import { router } from './classes/Router/Router.js';
+import { HTTPTransport } from './classes/Http/Http.js';
 
 const rootEl = document.querySelector('#app');
 const menuEl = document.querySelector('#menu');

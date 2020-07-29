@@ -115,6 +115,7 @@ export class HTTPTransport {
   };
 }
 
+// Пример использования
 // const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 // const http = new HTTPTransport();
