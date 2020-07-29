@@ -1,12 +1,12 @@
 /* @import url('./components/App/style.css'); */
 @import url('./components/Menu/style.css');
 @import url('./components/Box/style.css');
-/* @import url('./components/Button/style.css'); */
-/* @import url('./components/Input/style.css'); */
+@import url('./components/Button/style.css');
+@import url('./components/Input/style.css'); 
 
-/* @import url('./pages/PageLogin/style.css'); */
+@import url('./pages/Login/style.css'); 
 /* @import url('./pages/PageRegistration/style.css'); */
-@import url('./pages/PageError/style.css');
+@import url('./pages/Error/style.css');
 
 :root {
   --nord-g: #999;
