@@ -24,7 +24,7 @@ export class EventBus {
       (listener) => listener !== callback
     );
 
-    if (this.listeners[event].length) {
+    if (this.listeners[event].length === 0) {
       delete this.listeners[event];
     }
   }

@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "watch": true,
     "newLine": "LF",
+    "esModuleInterop": true,
     "moduleResolution": "classic"
   },
   "exclude": [
