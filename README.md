@@ -19,12 +19,21 @@
 npm run install:all
 ```
 
+## Тесты
+
+для разработки
+
+```
+npm test
+```
+
 ## Запуск
 
 для разработки
 
 ```
-npm run dev
+npm run dev:server
+npm run dev:client
 ```
 
 ## **Примеры использования**

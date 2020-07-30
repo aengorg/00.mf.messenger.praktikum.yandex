@@ -5,73 +5,60 @@ import { validation } from '../../utils/validation.js';
 
 export class Input extends Component {
   value: string = '';
-  errors: string[];
+  errors: string[] = [];
 
   constructor(props) {
     super(props);
-    this.value = '';
-    this.errors = [];
   }
 
   render() {
-    // return this.renderTemplate(template, {
-    //   ...props,
-    //   value: this.value,
-    //   errors: this.errors,
-    //   classes: {
-    //     error: this.errors.length ? 'input__error--show' : '',
-    //   },
-    // });
+    let error = '';
+    if (this.errors) {
+      console.log('show err');
+
+      error = this.errors.length ? 'input__error--show' : '';
+    }
+
+    console.log(this.errors);
+
     return Handlebars.compile(template)({
       ...this.props,
       value: this.value,
       errors: this.errors,
       classes: {
-        error: this.errors ? 'input__error--show' : '',
+        // error: 'input__error--show',
+        error: error,
       },
       id: this.id,
     });
   }
 
-  // onMount() {
-  //   const input = this.el.querySelector('input');
+  isValid() {
+    this.errors = [];
+    const errs = validation(this.value, this.props.rules);
+    if (errs.length > 0) {
+      this.errors = errs;
+      this.setState({ errors: errs });
+    }
 
-  //   input.addEventListener('blur', this.handleBlur);
-  //   input.addEventListener('click', this.handleClick);
-  //   input.addEventListener('input', this.handleChange);
-  // }
+    return this.errors;
+  }
 
-  // isValid = () => {
-  //   this.errors = validation(this.value, this.props.rules);
-  //   this.update(this.props);
-  //   return this.errors.length === 0;
-  // };
+  getValue() {
+    return this.value;
+  }
 
-  // getValue = () => {
-  //   return this.value;
-  // };
+  resetValue() {
+    return (this.value = '');
+  }
 
-  // resetValue = () => {
-  //   this.value = '';
-  //   this.update(this.props);
-  // };
+  addEvents() {
+    this.getElement().addEventListener('input', (e: any) => {
+      this.value = e.target.value;
+    });
 
-  // handleBlur = () => {
-  //   if (this.props.rules) {
-  //     this.errors = validation(this.value, this.props.rules);
-  //     this.update(this.props);
-  //   }
-  // };
-
-  // handleFocus = () => {
-  //   // console.log('handleFocus');
-  // };
-
-  // handleClick = () => {
-  //   // console.log('handleClick');
-  // };
-
-  // handleChange = (e) => {
-  //   this.value = e.target.value;
-  // };
+    this.getElement().addEventListener('blur', (e: any) => {
+      this.isValid();
+    });
+  }
 }

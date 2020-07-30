@@ -4,7 +4,7 @@ import { generationId } from '../../utils/generationId.js';
 export class Component {
   public id: string;
   protected props: any;
-  private state: any;
+  public state: any;
   private eventBus: EventBus;
   private _element: HTMLElement;
 
@@ -13,6 +13,7 @@ export class Component {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
+    FLOW_ADD_EVENTS: 'flow:add-events',
   };
 
   constructor(props = {}) {
@@ -20,7 +21,7 @@ export class Component {
 
     this.id = generationId();
     this._element = undefined;
-    this.state = {};
+    this.state = this.makePropsProxy({});
     this.props = this.makePropsProxy(props);
     this.registerEvents();
 
@@ -42,6 +43,10 @@ export class Component {
       this._componentDidUpdate(oldProps, newProps)
     );
     this.eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
+    this.eventBus.on(
+      Component.EVENTS.FLOW_ADD_EVENTS,
+      this.addEvents.bind(this)
+    );
   }
 
   private createResources(): void {
@@ -57,6 +62,8 @@ export class Component {
     this.componentDidMount();
     this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
   }
+
+  public addEvents(): void {}
 
   public componentDidMount(oldProps?: any): boolean {
     return true;
@@ -85,9 +92,16 @@ export class Component {
     return this.element;
   }
 
+  getElement() {
+    return document.querySelector(`[data-key=${this.id}]`);
+  }
+
   private _render() {
     if (this._element) {
       this._element.innerHTML = this.render();
+      setTimeout(() => {
+        this.eventBus.emit(Component.EVENTS.FLOW_ADD_EVENTS);
+      }, 0);
     }
   }
 

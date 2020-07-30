@@ -1,11 +1,18 @@
 export const template = `
-<div class="input {{ classes.wrapper }}" data-key="{{ id }}">
+<div class="input {{ classes.wrapper }}" >
   <div class="input__error {{ classes.error }}">
-    {{#each errors as |error| }}
-      <div>{{ error }}</div>
+    {{#each errors }}
+      <div>{{ this }}</div>
     {{/each }}
   </div>
-  <input class="input__text {{ classes.input }}" type="{{ type }}" required {{ attrs }} value="{{ value }}" />
+  <input 
+    data-key="{{ id }}"
+    class="input__text {{ classes.input }}" 
+    type="{{ type }}" 
+    value="{{ value }}" 
+    {{ attrs }} 
+    required 
+  />
   <label class="input__label {{ classes.label }}">
     {{ labelText }}
   </label>
