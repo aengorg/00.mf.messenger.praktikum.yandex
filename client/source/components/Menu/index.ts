@@ -14,7 +14,7 @@ export class Menu extends Component {
         title: 'Login',
       },
       {
-        link: '.#registration',
+        link: '.#signup',
         title: 'Registration',
       },
       {

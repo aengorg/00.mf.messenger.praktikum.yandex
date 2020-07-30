@@ -8,8 +8,9 @@ export const template = `
         <div>{{ error }}</div>
       {{/each }}
     </div>
-    {{#each fields as |field| }}
-      {{{Component field.component field.props field.parent }}}
+    {{#each fields }}
+      {{{Component this }}}
+      <br>
     {{/each }}
   </form>
   <br>

@@ -6,6 +6,7 @@ import './helpers/Component.js';
 import { Menu } from './components/Menu/index.js';
 import { ErrorPage } from './pages/Error/index.js';
 import { LoginPage } from './pages/Login/index.js';
+import { SignupPage } from './pages/Signup/index.js';
 
 import { store } from './store/index.js';
 import { router } from './classes/Router/Router.js';
@@ -20,7 +21,7 @@ menu.mount(menuEl);
 router
   .use('', new ErrorPage({ text: 'root' }))
   .use('login', new LoginPage())
-  .use('1', new ErrorPage({ text: '1' }))
+  .use('signup', new SignupPage())
   .use('2', new ErrorPage({ text: '2' }))
   .use('3', new ErrorPage({ text: '3' }))
   .use(

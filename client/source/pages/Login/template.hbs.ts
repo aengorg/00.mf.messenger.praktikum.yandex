@@ -5,8 +5,8 @@ export const template = `
   <form action="" class="form">
     <div class="form_error">
     </div>
-    {{#each fields as |field| }}
-      {{{Component field }}}
+    {{#each fields }}
+      {{{Component this }}}
       <br>
     {{/each }}
   </form>
