@@ -98,11 +98,7 @@ export class Component {
 
   private _render() {
     if (this._element) {
-      const block = this.render();
-      this._element.innerHTML = '';
-      this._element.innerHTML = block;
-      console.log(this._element);
-      // this.eventBus.emit(Component.EVENTS.FLOW_CDM);
+      this._element.innerHTML = this.render();
       setTimeout(() => {
         this.eventBus.emit(Component.EVENTS.FLOW_ADD_EVENTS);
       }, 0);
