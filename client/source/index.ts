@@ -15,15 +15,17 @@ import { HTTPTransport } from './classes/Http/Http.js';
 const rootEl = document.querySelector('#app');
 const menuEl = document.querySelector('#menu');
 
+// монтируем 1 раз
 const menu = new Menu();
 menu.mount(menuEl);
 
+// монтируем внутри роутера
 router
   .use('', new ErrorPage({ text: 'root' }))
   .use('login', new LoginPage())
   .use('signup', new SignupPage())
-  .use('2', new ErrorPage({ text: '2' }))
-  .use('3', new ErrorPage({ text: '3' }))
+  .use('chat', new ErrorPage({ text: 'chat' }))
+  .use('settings', new ErrorPage({ text: 'settings' }))
   .use(
     'error',
     new ErrorPage({

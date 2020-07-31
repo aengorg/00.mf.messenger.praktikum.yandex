@@ -61,6 +61,8 @@ export class SignupPage extends Component {
     return Handlebars.compile(template)({ ...this.props, id: this.id });
   }
 
+  // всё что ниже - валидация и собмит на будущее
+  //
   // validation() {
   //   const passwords = this.children.filter(
   //     (filed) => filed instanceof Input && filed.props.type === 'password'

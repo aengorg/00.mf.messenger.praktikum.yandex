@@ -72,7 +72,7 @@ export class Component {
   private _componentDidUpdate = (oldProps: any, newProps: any): void => {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) return;
-    this._render();
+    this.eventBus.emit(Component.EVENTS.FLOW_RENDER);
   };
 
   public componentDidUpdate(oldProps: any, newProps: any) {
@@ -98,7 +98,11 @@ export class Component {
 
   private _render() {
     if (this._element) {
-      this._element.innerHTML = this.render();
+      const block = this.render();
+      this._element.innerHTML = '';
+      this._element.innerHTML = block;
+      console.log(this._element);
+      // this.eventBus.emit(Component.EVENTS.FLOW_CDM);
       setTimeout(() => {
         this.eventBus.emit(Component.EVENTS.FLOW_ADD_EVENTS);
       }, 0);

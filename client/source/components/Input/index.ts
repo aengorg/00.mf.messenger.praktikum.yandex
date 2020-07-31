@@ -4,61 +4,64 @@ import { template } from './template.hbs.js';
 import { validation } from '../../utils/validation.js';
 
 export class Input extends Component {
-  value: string = '';
-  errors: string[] = [];
-
   constructor(props) {
     super(props);
+    this.state = {
+      value: '',
+      errors: [],
+    };
   }
 
   render() {
     let error = '';
-    if (this.errors) {
-      console.log('show err');
-
-      error = this.errors.length ? 'input__error--show' : '';
+    if (this.state.errors) {
+      error = this.state.errors.length ? 'input__error--show' : '';
     }
 
-    console.log(this.errors);
-
-    return Handlebars.compile(template)({
+    const text = Handlebars.compile(template)({
       ...this.props,
-      value: this.value,
-      errors: this.errors,
+      value: this.state.value,
+      errors: this.state.errors,
       classes: {
-        // error: 'input__error--show',
-        error: error,
+        error: error, // 'input__error--show'
       },
       id: this.id,
     });
+    // для отладки
+    // console.log(text);
+    return text;
   }
 
   isValid() {
-    this.errors = [];
-    const errs = validation(this.value, this.props.rules);
-    if (errs.length > 0) {
-      this.errors = errs;
-      this.setState({ errors: errs });
-    }
-
-    return this.errors;
+    // заложено для валидации поля
+    // this.errors = [];
+    // const errs = validation(this.value, this.props.rules);
+    // if (errs.length > 0) {
+    //   this.errors = errs;
+    //   this.setState({ errors: errs });
+    // }
+    // return this.errors;
   }
 
   getValue() {
-    return this.value;
+    return this.state.value;
   }
 
   resetValue() {
-    return (this.value = '');
+    return (this.state.value = '');
   }
 
   addEvents() {
-    this.getElement().addEventListener('input', (e: any) => {
-      this.value = e.target.value;
-    });
+    if (this.getElement()) {
+      this.getElement().addEventListener('input', (e: any) => {
+        this.state.value = e.target.value;
+        console.log('input');
+      });
 
-    this.getElement().addEventListener('blur', (e: any) => {
-      this.isValid();
-    });
+      this.getElement().addEventListener('blur', (e: any) => {
+        // тест который не работает
+        this.setState({ errors: ['11111', '999999'] });
+      });
+    }
   }
 }

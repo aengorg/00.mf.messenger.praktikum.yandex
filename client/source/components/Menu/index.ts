@@ -51,15 +51,7 @@ export class Menu extends Component {
     if (e.target.href) {
       e.preventDefault();
       e.stopPropagation();
-
       router.go(new URL(e.target.href).hash);
-
-      // const urlHash = new URL(e.target.href).hash;
-      // location.replace(urlHash);
-
-      // this.props.bindNewPage();
-
-      // this.triggerEvent('newPage', { data: 'asd' }); // ???
     }
   };
 }
