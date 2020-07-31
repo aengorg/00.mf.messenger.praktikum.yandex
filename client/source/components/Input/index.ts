@@ -54,12 +54,13 @@ export class Input extends Component {
   addEvents() {
     if (this.getElement()) {
       this.getElement().addEventListener('input', (e: any) => {
-        this.state.value = e.target.value;
         console.log('input');
+        this.state.value = e.target.value;
       });
 
       this.getElement().addEventListener('blur', (e: any) => {
         // тест который не работает
+        console.log('blur');
         this.setState({ errors: ['11111', '999999'] });
       });
     }
