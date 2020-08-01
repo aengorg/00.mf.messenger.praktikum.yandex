@@ -5,8 +5,10 @@ import './helpers/Component.js';
 
 import { Menu } from './components/Menu/index.js';
 import { ErrorPage } from './pages/Error/index.js';
+import { TestPage } from './pages/Test/index.js';
 import { LoginPage } from './pages/Login/index.js';
 import { SignupPage } from './pages/Signup/index.js';
+import { SettingsPage } from './pages/Settings/index.js';
 
 import { store } from './store/index.js';
 import { router } from './classes/Router/Router.js';
@@ -25,7 +27,8 @@ router
   .use('login', new LoginPage())
   .use('signup', new SignupPage())
   .use('chat', new ErrorPage({ text: 'chat' }))
-  .use('settings', new ErrorPage({ text: 'settings' }))
+  .use('settings', new SettingsPage())
+  .use('ui', new TestPage())
   .use(
     'error',
     new ErrorPage({

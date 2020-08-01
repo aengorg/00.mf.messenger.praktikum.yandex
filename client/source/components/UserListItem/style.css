@@ -1,0 +1,53 @@
+.user-list {
+}
+
+.user-list__item {
+  display: flex;
+  height: 70px;
+  overflow: hidden;
+  margin-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.user-list__item:hover {
+  background-color: var(--nord6);
+}
+
+.user-list__item-right {
+  overflow: hidden;
+}
+
+.user-list__item-avatar {
+  margin-right: 10px;
+}
+
+.user-list__item-name {
+  font-size: 1.5rem;
+}
+
+.user-list__item-text {
+  height: 100%;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user__avatar {
+  margin-right: 10px;
+}
+
+.user__name {
+  font-size: 1.5rem;
+}
+
+.user__setting {
+  font-size: 3rem;
+  cursor: pointer;
+}

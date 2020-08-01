@@ -4,7 +4,7 @@ import { template } from './template.hbs.js';
 import { validation } from '../../utils/validation.js';
 
 export class Input extends Component {
-  constructor(props) {
+  constructor(props?) {
     super(props);
     this.state = {
       value: '',

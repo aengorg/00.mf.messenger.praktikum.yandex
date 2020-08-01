@@ -3,20 +3,22 @@
   height: 60px;
   width: 60px;
   background-color: var(--nord3);
+  border: 2px solid var(--nord6);
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .avatar-status::after {
   content: '';
   display: block;
   position: absolute;
-  bottom: 4px;
-  right: 4px;
+  bottom: 5px;
+  right: 5px;
 
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 
-  border: 3px solid var(--nord6);
+  border: 2px solid var(--nord6);
   border-radius: 50%;
 }
 

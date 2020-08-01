@@ -29,6 +29,10 @@ export class Menu extends Component {
         link: '.#error',
         title: 'Error 500',
       },
+      {
+        link: '.#ui',
+        title: 'UI',
+      },
     ];
 
     return Handlebars.compile(template)({

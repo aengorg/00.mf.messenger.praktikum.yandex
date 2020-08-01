@@ -1,11 +1,15 @@
 @import url('./components/Menu/style.css');
 @import url('./components/Box/style.css');
 @import url('./components/Button/style.css');
-@import url('./components/Input/style.css'); 
+@import url('./components/Input/style.css');
+@import url('./components/AvatarLoader/style.css');
+@import url('./components/UserListItem/style.css');
+@import url('./components/Avatar/style.css');
 
-@import url('./pages/Login/style.css'); 
-/* @import url('./pages/PageRegistration/style.css'); */
+@import url('./pages/Login/style.css');
 @import url('./pages/Error/style.css');
+/* @import url('./pages/Signup/style.css'); */
+/* @import url('./pages/Test/style.css'); */
 
 :root {
   --nord-g: #999;
